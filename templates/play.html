@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %}HigherLower{% endblock %}
+{% block css %}<link rel="stylesheet" href="./static/play.css" />{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div id="songs">
+        <div class="side" id="left">
+            <div class="song">
+                <div class="song_name" id="song1_name"></div>
+                <div class="song_artist" id="song1_artist"></div>
+            </div>
+            <img class="image" id="image1">
+            <div class="description_top">has a</div>
+            <div class="popularity" id="popularity1"></div>
+            <div class="description_bottom">popularity rating</div>
+        </div>
+
+        <div class="side" id="right">
+            <div class="song">
+                <div class="song_name" id="song2_name"></div>
+                <div class="song_artist" id="song2_artist"></div>
+            </div>
+            <img class="image" id="image2">
+            <div class="description_top">has a</div>
+            <div class="popularity" id="popularity2">
+                <button class="buttons" id="higher_button" role="button" onclick="nextHigher()">Higher</button>
+                <button class="buttons" id="lower_button" role="button" onclick="nextLower()">Lower</button>
+            </div>
+            <div class="description_bottom">popularity rating</div>
+        </div>
+    </div>
+</div>
+
+<div id="score">Score: </div>
+
+
+<script type="text/javascript">
+    var song1, song2, all_songs = JSON.parse('{{ songs|safe }}'), score=0;
+    
+    init(all_songs)
+
+    // runs when page is loaded up
+    function init(songs){
+        // getting a random song from list
+        song1 = songs[Math.floor(Math.random()*(songs.length))];
+
+        // removing song1 from list of songs
+        const songs_temp = songs.filter(song => song != song1)
+
+        // getting a second random song from list
+        song2 = songs_temp[Math.floor(Math.random()*(songs_temp.length))];
+        
+        // add song1 and song2 to html page
+        var div1_name = document.getElementById("song1_name");
+        div1_name.textContent = song1[0];
+        var div1_artist = document.getElementById("song1_artist");
+        div1_artist.textContent = formatArtists(song1[1]);
+        var div2_name = document.getElementById("song2_name");
+        div2_name.textContent = song2[0];
+        var div2_artist = document.getElementById("song2_artist");
+        div2_artist.textContent = formatArtists(song2[1]);;
+
+        // add images to html page
+        var img1 = document.getElementById("image1");
+        img1.src = song1[3];
+        var img2 = document.getElementById("image2");
+        img2.src = song2[3];
+
+        // add popularity of song1 to html page
+        var song1_div = document.getElementById("popularity1");
+        song1_div.textContent = song1[2] + "%";
+
+        // setting score and adding to html page
+        score = 0;
+        var score_div = document.getElementById("score");
+        score_div.textContent = "Score: " + score;
+
+        // returning rest of songs (excludes song1 and song2)
+        all_songs = songs_temp.filter(song => song != song2);
+    }
+
+    // format the array of artists into a string with proper spacing
+    function formatArtists(artists){
+        if (artists.length == 1) {
+            return artists[0];
+        } else if (artists.length > 1) {
+            formattedStr = artists[0];
+            for (let i = 1; i < artists.length; i++) {
+                formattedStr += ", " + artists[i];
+            }
+            return formattedStr;
+        } else {
+            return "";
+        }
+    }
+
+    // after each round, updates songs
+    function updateSongs(songs){
+        // remove popularities of previous songs from screen
+        var div_pop1 = document.getElementById("popularity1");
+        div_pop1.textContent = "";
+        var div_pop2 = document.getElementById("popularity2");
+        div_pop2.textContent = "";
+
+        // moving song on right side to left side
+        song1 = song2;
+
+        // getting a random song from list
+        song2 = songs[Math.floor(Math.random()*(songs.length))];
+        
+        // add song1 and song2 to html page
+        var div1_name = document.getElementById("song1_name");
+        div1_name.textContent = song1[0];
+        var div1_artist = document.getElementById("song1_artist");
+        div1_artist.textContent = formatArtists(song1[1]);;
+        var div2_name = document.getElementById("song2_name");
+        div2_name.textContent = song2[0];
+        var div2_artist =  document.getElementById("song2_artist");
+        div2_artist.textContent = formatArtists(song2[1]);;
+
+        // add images to html page
+        var img1 = document.getElementById("image1");
+        img1.src = song1[3];
+        var img2 = document.getElementById("image2");
+        img2.src = song2[3];
+
+        // add popularity of song1 to html page
+        var song1_div = document.getElementById("popularity1");
+        song1_div.textContent = song1[2] + "%";
+
+        // updating songs (excluding new chosen song)
+        all_songs = songs.filter(song => song != song2)
+    }
+
+    // runs after "higher" button is pressed
+    function nextHigher(){
+        // print the popularity of song2
+        var song1_div = document.getElementById("popularity2");
+        song1_div.textContent = song2[2] + "%";
+
+        // update score
+        if (song2[2] >= song1[2]) {
+            score += 1;
+            var score_div = document.getElementById("score");
+            score_div.textContent = "Score: " + score;
+        }
+
+        // add "next" button
+        btn = document.createElement("button");
+        btn.innerHTML = "Next";
+        btn.setAttribute("id", "next_button");
+        btn.setAttribute("onclick", "createNextPage()");
+        document.getElementById("content").appendChild(btn)
+    }
+
+    // runs after "lower" button is pressed
+    function nextLower(){
+        // print the popularity of song2
+        var song1_div = document.getElementById("popularity2");
+        song1_div.textContent = song2[2] + "%";
+
+        // update score
+        if (song1[2] >= song2[2]) {
+            score += 1;
+            var score_div = document.getElementById("score");
+            score_div.textContent = "Score: " + score;
+        }
+
+        // add next button
+        btn = document.createElement("button");
+        btn.setAttribute("id", "next_button");
+        btn.setAttribute("onclick", "createNextPage()");
+        btn.textContent = "Next";
+        document.getElementById("content").appendChild(btn)
+    }
+
+    // runs if "next" button is clicked but no songs left
+    function createNextPage(){
+        if (all_songs.length == 0) {
+            endScreen();
+        } else {
+            // remove "next" button
+            document.getElementById("next_button").remove();
+
+            // add new songs to screen
+            updateSongs(all_songs);
+
+            // add "higher" button
+            btn_higher = document.createElement("button");
+            btn_higher.setAttribute("id", "higher_button");
+            btn_higher.setAttribute("type", "button");
+            btn_higher.setAttribute("onclick", "nextHigher()");
+            btn_higher.textContent = "Higher";
+            document.getElementById("popularity2").appendChild(btn_higher)
+
+            // add "lower" button
+            btn_lower = document.createElement("button");
+            btn_lower.setAttribute("id", "lower_button");
+            btn_lower.setAttribute("type", "button");
+            btn_lower.setAttribute("onclick", "nextLower()");
+            btn_lower.textContent = "Lower";
+            document.getElementById("popularity2").appendChild(btn_lower)
+        }
+    }
+
+    // runs if "next" button pressed, but no songs left
+    function endScreen(){
+        // clear screen
+        document.body.innerHTML = "";
+
+        // create div to encapsulate below elements
+        div = document.createElement("div");
+        div.setAttribute("id", "endscreen");
+        div.style.display = "flex";
+        div.style.flexDirection = "column";
+        div.style.justifyContent = "center";
+        div.style.alignItems = "center";
+        document.body.appendChild(div)
+
+        // show final score
+        header = document.createElement("h1");
+        header.textContent = "Score: " + score + " out of 49";
+        document.getElementById("endscreen").appendChild(header)
+
+        // add "play again" button
+        btn = document.createElement("a");
+        btn.setAttribute("id", "play_again_button");
+        btn.setAttribute("href", "{{url_for('play')}}");
+        btn.textContent = "Play Again";
+        document.getElementById("endscreen").appendChild(btn)
+    }
+</script>
+{% endblock %}

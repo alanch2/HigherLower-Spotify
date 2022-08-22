@@ -1,0 +1,253 @@
+body {
+  background-color: rgba(0, 0, 0, 0.836);
+  padding-top: 1%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: 99vw;
+  height: 96vh;
+  color: white;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.side {
+  display: inline-block;
+  width: 49vw;
+  height: 90vh;
+  text-align: center;
+  flex: 1;
+  padding-top: 1vh;
+}
+
+.song {
+  display: block;
+  font-family: sans-serif;
+  font-weight: bold;
+  height: 17vh;
+  padding-bottom: 1vh;
+}
+
+.song_name {
+  padding-bottom: 1%;
+  font-size: 2.5vw;
+}
+
+.song_artist {
+  font-size: 1.5vw;
+  color: #ccc;
+}
+
+.image {
+  width: 50%;
+  height: 50%;
+  border-radius: 7%;
+}
+
+.popularity {
+  height: 7vh;
+  font-size: 4.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.description_top {
+  font-size: 1.2vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.description_bottom {
+  font-size: 1.2vw;
+  padding: 1.5vh;
+}
+
+.buttons {
+  margin: 1%;
+}
+
+#next_button {
+  display: block;
+  text-align: center;
+  width: 10%;
+  margin-top: -14vh;
+}
+
+#output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vw;
+}
+
+#score {
+  position: fixed;
+  font-size: 1vw;
+  width: 5vw;
+  right: 2%;
+  bottom: 1%;
+}
+
+/* button CSS */
+button,
+a {
+  align-items: center;
+  appearance: none;
+  background-clip: padding-box;
+  background-color: initial;
+  background-image: none;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: Eina01, sans-serif;
+  font-size: 1vw;
+  font-weight: 800;
+  justify-content: center;
+  line-height: 24px;
+  margin: 1%;
+  min-height: 64px;
+  outline: none;
+  overflow: visible;
+  padding: 19px 26px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: auto;
+  word-break: keep-all;
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  button,
+  a {
+    padding: 19px 32px;
+  }
+}
+
+button:before,
+button:after,
+a:before,
+a:after {
+  border-radius: 80px;
+}
+
+button:before,
+a:before {
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -2;
+}
+
+#higher_button:before {
+  background-image: linear-gradient(92.83deg, #5f9eda 0, #1b7be9fd 100%);
+}
+
+#lower_button:before {
+  background-image: linear-gradient(92.83deg, #95e0bb 0, #0dce74fd 100%);
+}
+
+#next_button:before,
+#play_again_button::before {
+  background-image: linear-gradient(92.83deg, #0dce74fd 0, #1b7be9fd 100%);
+}
+
+button:after,
+a:after {
+  background-color: initial;
+  bottom: 4px;
+  content: "";
+  display: block;
+  left: 4px;
+  overflow: hidden;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  transition: all 100ms ease-out;
+  z-index: -1;
+}
+
+#higher_button:after {
+  background-image: linear-gradient(#0f4c54 0, #0c0d0d 100%);
+}
+
+#lower_button:after {
+  background-image: linear-gradient(#0f4c54 0, #0c0d0d 100%);
+}
+
+#next_button:after,
+#play_again_button:after {
+  background-image: linear-gradient(92.83deg, #0f4c54 0, #0c0d0d 100%);
+}
+
+#higher_button:hover:not(:disabled):before {
+  background: linear-gradient(92.83deg, #5f9eda 0%, #1b7be9fd 100%);
+}
+
+#lower_button:hover:not(:disabled):before {
+  background: linear-gradient(92.83deg, #95e0bb 0%, #0dce74fd 100%);
+}
+
+#next_button:hover:not(:disabled):before,
+#play_again_button:hover:not(:disabled):before {
+  background: linear-gradient(92.83deg, #0dce74fd 0%, #1b7be9fd 100%);
+}
+
+button:hover:not(:disabled):after,
+a:hover:not(:disabled):after {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition-timing-function: ease-in;
+  opacity: 0;
+}
+
+button:active:not(:disabled),
+a:active:not(:disabled) {
+  color: #ccc;
+}
+
+button:active:not(:disabled):before,
+a:active:not(:disabled):before {
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+    linear-gradient(92.83deg, #0dce74fd 0, #1b7be9fd 100%);
+}
+
+button:active:not(:disabled):after,
+a:active:not(:disabled):after {
+  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  top: 4px;
+}
+
+button:disabled,
+a:disabled {
+  cursor: default;
+  opacity: 0.24;
+}

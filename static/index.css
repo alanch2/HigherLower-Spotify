@@ -1,0 +1,155 @@
+body {
+  background-color: rgba(0, 0, 0, 0.836);
+  padding-top: 1%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: 99vw;
+  height: 96vh;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  height: 30vh;
+}
+
+h1 {
+  display: inline;
+  font-size: 8vw;
+}
+
+#higher {
+  color: #1b7be9fd;
+}
+
+#lower {
+  color: #0dce74fd;
+}
+
+p {
+  font-size: 1vw;
+  padding-bottom: 15vh;
+}
+
+/* a CSS */
+a {
+  align-items: center;
+  appearance: none;
+  background-clip: padding-box;
+  background-color: initial;
+  background-image: none;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: Eina01, sans-serif;
+  font-size: 1vw;
+  font-weight: 800;
+  justify-content: center;
+  line-height: 24px;
+  margin: 1%;
+  min-height: 64px;
+  outline: none;
+  overflow: visible;
+  padding: 19px 26px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: auto;
+  word-break: keep-all;
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  button {
+    padding: 19px 32px;
+  }
+}
+
+a:before,
+a:after {
+  border-radius: 80px;
+}
+
+a:before {
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -2;
+}
+
+a:before {
+  background-image: linear-gradient(92.83deg, #0dce74fd 0, #136ff9 100%);
+}
+
+a:after {
+  background-color: initial;
+  bottom: 4px;
+  content: "";
+  display: block;
+  left: 4px;
+  overflow: hidden;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  transition: all 100ms ease-out;
+  z-index: -1;
+}
+
+a:after {
+  background-image: linear-gradient(#0f4c54 0, #0c0d0d 100%);
+}
+
+a:hover:not(:disabled):before {
+  background: linear-gradient(92.83deg, #0dce74fd 0%, #136ff9 100%);
+}
+
+a:hover:not(:disabled):after {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition-timing-function: ease-in;
+  opacity: 0;
+}
+
+a:active:not(:disabled) {
+  color: #ccc;
+}
+
+a:active:not(:disabled):before {
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+    linear-gradient(92.83deg, #0dce74fd 0%, #136ff9 100%);
+}
+
+a:active:not(:disabled):after {
+  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  top: 4px;
+}
+
+a:disabled {
+  cursor: default;
+  opacity: 0.24;
+}
